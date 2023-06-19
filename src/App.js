@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import "./App.css";
+import Navbar from "./Components/Navbar/Navbar";
+import AllRoutes from "./AllRoutes";
+import { fetchAllQuestions } from "./Actions/questions";
+import { fetchAllUsers } from "./Actions/users";
+
+import { Toaster } from 'react-hot-toast';
+// import Chatbot from "./components/Chatbot/Chatbot";
 
 function App() {
+  // const [isOpen, setIsOpen] = useState(false)
+  const [setIsOpen] = useState(false)
+
+  // const [isVerified, setIsVerified] = useState(false)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchAllQuestions())
+    dispatch(fetchAllUsers());
+  }, [dispatch])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Toaster />
+        <Navbar setIsOpen={setIsOpen} />
+        <AllRoutes />
+        {/* {isOpen ? (
+          <Chatbot
+            setIsOpen={setIsOpen}
+            isVerified={isVerified}
+            setIsVerified={setIsVerified}
+          />
+        )
+          : <button
+            className="open-chatbot"
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            Have Doubts? Click here!
+          </button>} */}
+      </Router>
     </div>
   );
 }
