@@ -27,9 +27,7 @@ export const login = (authData, navigate) => async (dispatch) => {
 export const forgotPassword = (email) => async () => {
     try {
         await api.forgotPassword(email);
-        // Handle any further actions or notifications after successful request
     } catch (error) {
         console.log(error);
-        // Handle error cases, such as displaying error messages or taking specific actions
     }
 };
